@@ -36,16 +36,16 @@ ARC_ARM = arm64
 
 PROC_V = $(shell uname -m)
 
-#ifeq ($(PROC_V), $(ARC_ARM))
-#	READLINE_LIB = -lreadline -lcurses -Lreadline_arm/8.1/lib
-#	READLINE_INC = -Ireadline_arm/8.1/include
-#else ifeq ($(PROC_V), $(ARC_86_64))
-	# READLINE_LIB = -lreadline -lcurses -Lreadline/8.1/lib
-	# READLINE_INC = -Ireadline/8.1/include
-#else
+ifeq ($(PROC_V), $(ARC_ARM))
+	READLINE_LIB = -lreadline -lcurses -L/opt/homebrew/Cellar/readline/8.1/lib
+	READLINE_INC = -I/opt/homebrew/Cellar/readline/8.1/include
+else ifeq ($(PROC_V), $(ARC_86_64))
 	READLINE_LIB = -lreadline -lcurses -L/Users/$(LOGNAME)/.brew/Cellar/readline/8.1/lib
 	READLINE_INC = -I/Users/$(LOGNAME)/.brew/Cellar/readline/8.1/include
-#endif
+else
+	READLINE_LIB = -lreadline -lcurses -L/Users/$(LOGNAME)/.brew/Cellar/readline/8.1/lib
+	READLINE_INC = -I/Users/$(LOGNAME)/.brew/Cellar/readline/8.1/include
+endif
 
 all:
 
